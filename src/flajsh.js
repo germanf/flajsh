@@ -17,6 +17,23 @@ export default class Connector {
     this._nonce = typeof nonceGenerator === "function" ? nonceGenerator : function() {
       return ++this.nonce;
     };
+  
+    function traceMethodCalls(obj) {
+      let handler = {
+        get(target, propKey, receiver) {
+          receiver;
+          const origMethod = target[propKey];
+          return function (...args) {
+            let result = origMethod.apply(this, args);
+            console.log(propKey + JSON.stringify(args)
+              + " -> " + JSON.stringify(result));
+            return result;
+          };
+        }
+      };
+      return new Proxy(obj, handler);
+    }
+    return traceMethodCalls(this);
   }
   
   getHeaderCredentials(path, params) {
