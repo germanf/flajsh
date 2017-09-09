@@ -18,7 +18,7 @@ if(env === 'build') {
 
 const config = {
   target: 'node',
-  entry: 'flajsh.js',
+  entry: 'index.js',
   context: path.join(__dirname, '/src'),
   devtool: 'source-map',
   output: {

@@ -1,7 +1,7 @@
 /* global describe, it, before */
 
 import chai from "chai";
-import Connector from "../lib/flajsh";
+import {Errr, FactoryConnector} from "../lib/flajsh";
 
 chai.expect();
 
@@ -11,7 +11,7 @@ let lib;
 
 describe('Given an instance of flajsh', () => {
   before(() => {
-    lib = new Connector('key', 'secret');
+    lib = new FactoryConnector('key', 'secret');
   });
   describe('when I need the name', () => {
     it('should return the name', () => {
@@ -20,13 +20,14 @@ describe('Given an instance of flajsh', () => {
   });
   describe('when I call a proxied methd', () => {
     it('should fail if it does not proxied/exists', () => {
-      try {
-        lib.someMethod();
-        var errr = new Errr('asdf');
-        console.log(errr);
-      } catch(err) {
-        expect(err).to.throw(new Errr('Property someMethod does not exist.'));
-      }
+      var memberName = "someMember";
+  
+      Promise.resolve()
+        .then(() => lib[someMember])
+        .catch((err) => {
+          expect(err).to.be.a.instanceOf(Errr);
+          expect(err.message).to.be.equal(`Property ${someMember} does not exist.`)
+        });
     });
   });
 });
