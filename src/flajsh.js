@@ -6,8 +6,9 @@ import Errr from "./errr.js";
 /**
  * Class
  */
-export default class Bitfinex {
+export default class Connector {
   constructor(key, secret, nonceGenerator) {
+    this.name = "bitfinex.connector";
     this.version = "v1";
     this.url = `https://api.bitfinex.com/${this.version}/`;
     this.key = key;

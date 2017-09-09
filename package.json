@@ -1,10 +1,10 @@
 {
-  "name": "bitfinex-sdk",
+  "name": "flajsh",
   "version": "0.0.1",
   "author": "germanf",
   "license": "MIT",
-  "description": "Bitfinex SDK",
-  "main": "lib/library.js",
+  "description": "flajsh",
+  "main": "lib/flajsh.js",
   "scripts": {
     "build": "webpack --env build",
     "dev": "webpack --progress --colors --watch --env dev",
