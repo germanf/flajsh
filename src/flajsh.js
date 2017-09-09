@@ -8,7 +8,7 @@ import Errr from "./errr.js";
  */
 export default class Bitfinex {
   constructor(key, secret, nonceGenerator) {
-    this.version = 'v1';
+    this.version = "v1";
     this.url = `https://api.bitfinex.com/${this.version}/`;
     this.key = key;
     this.secret = secret;
@@ -30,12 +30,12 @@ export default class Bitfinex {
     for(let key in params) {
       payload[key] = params[key];
     }
-    payload = new Buffer(JSON.stringify(payload)).toString('base64');
-    const signature = crypto.createHmac("sha384", this.secret).update(payload).digest('hex');
+    payload = new Buffer(JSON.stringify(payload)).toString("base64");
+    const signature = crypto.createHmac("sha384", this.secret).update(payload).digest("hex");
     const headers = {
-      'X-BFX-APIKEY': this.key,
-      'X-BFX-PAYLOAD': payload,
-      'X-BFX-SIGNATURE': signature
+      "X-BFX-APIKEY": this.key,
+      "X-BFX-PAYLOAD": payload,
+      "X-BFX-SIGNATURE": signature
     };
     
     return headers;
@@ -44,7 +44,7 @@ export default class Bitfinex {
   
   authRequest(path, params) {
     const options = {
-      method: 'POST',
+      method: "POST",
       uri: this.url + path,
       headers: this.getHeaderCredentials(path, params),
       json: true // Automatically stringifies the body to JSON
@@ -52,17 +52,22 @@ export default class Bitfinex {
     
     return rp(options)
       .then(console.log)
-      .then(requestCallback)
+      .then(this.requestCallback)
       .catch(console.log);
   }
   
   request(path) {
-    const url = this.url + path;
-    const requestOptions = {url, method: "GET", timeout: 15000};
-    return Request(requestOptions, requestCallback);
+    const options = {
+      method: "GET",
+      uri: this.url + path,
+      json: true // Automatically stringifies the body to JSON
+    };
+    return rp(options)
+      .then(this.requestCallback)
+      .catch(console.log);
   }
   
-  static requestCallback(err, res, body) {
+  requestCallback(err, res, body) {
     let result;
     
     try {
@@ -84,5 +89,5 @@ export default class Bitfinex {
       return result;
     }
   }
-};
+}
 
