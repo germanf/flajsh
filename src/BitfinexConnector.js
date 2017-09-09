@@ -2,6 +2,12 @@ import rp from "request-promise";
 import Errr from "errr";
 
 export default class BitfinexConnector {
+  /**
+   * BitfinexConnector
+   * @param key
+   * @param secret
+   * @param nonceGenerator
+   */
   constructor(key, secret, nonceGenerator) {
     this.name = "bitfinex.connector";
     this.version = "v1";
@@ -14,6 +20,12 @@ export default class BitfinexConnector {
     };
   }
   
+  /**
+   * getHeaderCredentials
+   * @param path
+   * @param params
+   * @returns {{X-BFX-APIKEY: *, X-BFX-PAYLOAD: {request: *, nonce}, X-BFX-SIGNATURE}}
+   */
   getHeaderCredentials(path, params) {
     if(!this.key || !this.secret) {
       throw new Errr("missing api key or secret");
@@ -37,7 +49,12 @@ export default class BitfinexConnector {
     return headers;
   }
   
-  
+  /**
+   * authRequest
+   * @param path
+   * @param params
+   * @returns {Promise.<TResult>}
+   */
   authRequest(path, params) {
     const options = {
       method: "POST",
@@ -51,6 +68,11 @@ export default class BitfinexConnector {
       .catch(console.error);
   }
   
+  /**
+   * request
+   * @param path
+   * @returns {Promise.<TResult>}
+   */
   request(path) {
     const options = {
       method: "GET",
@@ -62,6 +84,13 @@ export default class BitfinexConnector {
       .catch(console.error);
   }
   
+  /**
+   * requestCallback
+   * @param err
+   * @param res
+   * @param body
+   * @returns {*}
+   */
   requestCallback(err, res, body) {
     let result;
     
