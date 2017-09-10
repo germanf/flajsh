@@ -1,11 +1,12 @@
 import axios from "axios";
 import createRequestConfig from "./createRequestConfig";
 import get from "lodash/fp/get";
+import WebsocketClient from "./websocketClient";
 
 const beginningOfTime = 0;
 
 export default class BitfinexAPI {
-  // static WebsocketClient = WebsocketClient;
+  static WebsocketClient = WebsocketClient;
   
   constructor({key, secret} = {}) {
     this.key = key;

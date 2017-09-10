@@ -1,5 +1,6 @@
 /* global __dirname, require, module*/
 
+const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 const webpack = require('webpack');
 const UglifyJsPlugin = webpack.optimize.UglifyJsPlugin;
 const path = require('path');
@@ -33,7 +34,10 @@ const config = {
       {
         test: /\.js$/,
         loader: 'babel-loader',
-        exclude: /node_modules/
+        exclude: /node_modules/,
+        'options': {
+          'plugins': ['lodash']
+        }
       },
       {
         test: /(\.jsx|\.js)$/,
@@ -46,7 +50,9 @@ const config = {
     modules: [path.resolve('./node_modules'), path.resolve('./src')],
     extensions: ['.json', '.js']
   },
-  plugins: plugins
+  plugins: [
+    new LodashModuleReplacementPlugin
+  ]
 };
 
 module.exports = config;

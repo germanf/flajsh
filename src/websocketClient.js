@@ -9,7 +9,7 @@ const withData = listener => pipe(
   listener,
 );
 
-export default class BitfinexAPIWebsocketClient {
+export default class WebsocketClient {
   constructor({key, secret}) {
     this.key = key;
     this.secret = secret;
