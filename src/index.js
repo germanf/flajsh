@@ -1,3 +1,4 @@
 import Errr from "./errr";
 import FactoryConnector from "./flajsh";
-export {Errr, FactoryConnector};
+import BitfinexApi from "./BitfinexApi";
+export {Errr, FactoryConnector, BitfinexApi};
